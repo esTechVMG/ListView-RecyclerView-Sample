@@ -9,10 +9,10 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/firstButton"
+        android:id="@+id/button1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="ListView 1" />
 
     <ListView
         android:id="@+id/listOne"
@@ -24,7 +24,7 @@
         android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="ListView 2" />
 
     <ListView
         android:id="@+id/listTwo"
@@ -36,16 +36,23 @@
         android:id="@+id/button3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="RecyclerView 1" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listThree"
+        android:id="@+id/recyclerOne"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/button4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button" />
+        android:text="RecyclerView 2" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerTwo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 </LinearLayout>

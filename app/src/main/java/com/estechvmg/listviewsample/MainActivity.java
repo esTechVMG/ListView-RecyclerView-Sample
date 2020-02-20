@@ -1,6 +1,7 @@
 package com.estechvmg.listviewsample;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
@@ -12,30 +13,44 @@ import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity {
 
-    public Button first;
+    public Button first,second,third,fourth;
     public String[] list=new String[]{
             "Patatas","Tomtates","Esparragos"
     };
-    public ListView listView;
+    public ListView listViewOne,listViewTwo;
+    public RecyclerView recyclerViewOne,recyclerViewTwo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        listView=findViewById(R.id.listOne);
-        first=findViewById(R.id.firstButton);
-        first.setOnClickListener(new View.OnClickListener() {
+        listViewOne=findViewById(R.id.listOne);
+        listViewTwo=findViewById(R.id.listTwo);
+        recyclerViewOne=findViewById(R.id.recyclerOne);
+        recyclerViewTwo=findViewById(R.id.recyclerTwo);
+        first=findViewById(R.id.button1);
+        second=findViewById(R.id.button2);
+        third=findViewById(R.id.button3);
+        fourth=findViewById(R.id.button4);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item,list);
+        listViewOne.setAdapter(adapter);
+        showAndHideAction(first,listViewOne);
+        showAndHideAction(second,listViewTwo);
+        showAndHideAction(third,recyclerViewOne);
+        showAndHideAction(fourth,recyclerViewTwo);
+
+    }
+    public void showAndHideAction(View usedButton, final View usedListView){
+        usedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(listView.getVisibility()==View.VISIBLE){
-                    listView.setVisibility(View.GONE);
+                if(usedListView.getVisibility()==View.VISIBLE){
+                    usedListView.setVisibility(View.GONE);
                 }else{
-                    listView.setVisibility(View.VISIBLE);
+                    usedListView.setVisibility(View.VISIBLE);
                 }
             }
         });
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item,list);
-        listView.setAdapter(adapter);
     }
     class MyAdapter extends BaseAdapter{
         MyAdapter(){
