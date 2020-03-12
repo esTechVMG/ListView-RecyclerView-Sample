@@ -3,6 +3,7 @@ package com.estechvmg.listviewsample;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +38,12 @@ public class MainActivity extends AppCompatActivity {
         fourth=findViewById(R.id.button4);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,R.layout.support_simple_spinner_dropdown_item,list);
         listViewOne.setAdapter(adapter);
+        ArrayList<Jugador> secList = new ArrayList<>();
+        secList.add(new Jugador());
+        secList.add(new Jugador("Carvajal",23));
+        secList.add(new Jugador("Ramos",21));
+        MyAdapter adapterTwo = new MyAdapter(this, secList);
+        listViewTwo.setAdapter(adapterTwo);
         showAndHideAction(first,listViewOne);
         showAndHideAction(second,listViewTwo);
         showAndHideAction(third,recyclerViewOne);
@@ -53,44 +63,74 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     class MyAdapter extends BaseAdapter{
-        MyAdapter(){
-            super();
-
+        private final Context context;
+        private ArrayList<Jugador> list;
+        MyAdapter(Context context, ArrayList<Jugador> list){
+            this.list=list;
+            this.context=context;
         }
-
         @Override
         public int getCount() {
-            return 0;
+            return list.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return null;
+            return list.get(position);
         }
 
         @Override
         public long getItemId(int position) {
-            return 0;
+            return position;
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            return null;
+        public View getView(int position, View view, ViewGroup parent) {
+            ViewHolder holder;
+            if(view==null){
+                view=View.inflate(context,R.layout.list_row,null);
+                holder = new ViewHolder();
+                holder.tName = view.findViewById(R.id.item1);
+                holder.tYears = view.findViewById(R.id.item2);
+                holder.tType = view.findViewById(R.id.item3);
+                view.setTag(holder);
+            }else{
+                holder=(ViewHolder) view.getTag();
+            }
+            holder.tName.setText(list.get(position).getFirstName());
+            holder.tYears.setText(list.get(position).getYears());
+            holder.tType.setText(list.get(position).getType());
+            return view;
         }
     }
-    class Jugador{
-        String firstName;
-        String lastName;
-        int years;
-        String type;
-        Jugador(){
-            firstName="TestFirstName";
-            lastName="TestLastName";
-            years=0;
-            type="Unidentified";
-        }
-        Jugador(String firstName,String lastName,int years){
+}
+class ViewHolder {
+    TextView tName, tYears, tType;
+}
+class Jugador{
+    String firstName;
+    int years;
+    String type;
+    Jugador(){
+        firstName="TestFirstName";
+        years=0;
+        type="Unidentified";
+    }
+    Jugador(String firstName,int years){
+        this.firstName=firstName;
+        this.years=years;
+        type="Unidentified";
+    }
 
-        }
+    public String getYears() {
+        return String.valueOf(years);
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getType() {
+        return type;
     }
 }
